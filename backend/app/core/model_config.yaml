@@ -1,0 +1,65 @@
+steps:
+  douyin_extract:
+    purpose: "抖音视频解析与文案提取"
+    provider: "dashscope"
+    model: "qwen3.5-omni-plus"
+    stream: true
+    modalities:
+      - "text"
+    api_key_env: "DASHSCOPE_API_KEY"
+    output: "transcript_with_timestamps"
+
+  rewrite:
+    purpose: "短视频文案改写"
+    provider: "dashscope"
+    model: "qwen3.5-flash"
+    temperature: 0.8
+    max_tokens: 2000
+    api_key_env: "DASHSCOPE_API_KEY"
+    output: "structured_script_json"
+
+  text_to_speech:
+    purpose: "文本转语音"
+    provider: "dashscope"
+    model: "qwen3-tts-flash"
+    voice: "Cherry"
+    speed: 1.0
+    api_key_env: "DASHSCOPE_API_KEY"
+    output: "wav"
+
+  lip_sync:
+    purpose: "数字人图片驱动视频生成"
+    provider: "dashscope"
+    model: "wan2.2-s2v"
+    resolution: "480P"
+    api_key_env: "DASHSCOPE_API_KEY"
+    output: "mp4"
+
+  subtitle_quality:
+    purpose: "最终视频字幕识别与一致性检查"
+    provider: "dashscope"
+    model: "qwen3.5-omni-plus"
+    api_key_env: "DASHSCOPE_API_KEY"
+    output: "subtitle_segments_and_issues_json"
+
+  cover_design:
+    purpose: "封面设计"
+    provider: "dashscope"
+    prompt_model: "qwen3.5-flash"
+    image_model: "qwen-image-2.0-pro"
+    size: "2048*2048"
+    watermark: false
+    prompt_extend: true
+    negative_prompt: "低分辨率，低画质，肢体畸形，手指畸形，画面过饱和，蜡像感，人脸无细节，过度光滑，画面具有AI感，构图混乱，文字模糊，扭曲。"
+    api_key_env: "DASHSCOPE_API_KEY"
+    output: "png"
+
+  export:
+    purpose: "最终视频导出"
+    provider: "local"
+    tool: "ffmpeg"
+    format: "mp4"
+    resolution: "1080x1920"
+    fps: 30
+    video_codec: "h264"
+    audio_codec: "aac"

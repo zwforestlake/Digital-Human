@@ -1,0 +1,21 @@
+.DS_Store
+
+# Secrets
+.env
+.env.*
+!*.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+backend/storage/
+backend/exports/
+backend/cookies/
+
+# Node
+node_modules/
+dist/
+frontend/node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
